@@ -5,6 +5,7 @@ import WeatherCard from "../card/WeatherCard";
 import { getWeatherIcon } from "../icons/getWeatherIcon";
 
 function WeatherApp() {
+  const imageAlt = "weather image not found";
   const [city, setCity] = useState(null);
   const [store, setStore] = useState(null);
   const [country, setCountry] = useState(null);
@@ -14,7 +15,7 @@ function WeatherApp() {
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
-    const weatherdetail = async () => {
+    const debounceSearch = setTimeout(async () => {
       if (!searchValue) return;
       try {
         const apikey = `https://api.openweathermap.org/data/2.5/weather?q=${searchValue}&appid=${process.env.REACT_APP_SECRET_KEY}&units=metric`;
@@ -28,12 +29,19 @@ function WeatherApp() {
         console.log(error);
         setHasError(error);
       }
-    };
-    weatherdetail();
+    }, 1000);
+
+    return () => clearTimeout(debounceSearch);
   }, [searchValue]);
 
-  function onChangeEvent(e) {
-    setSearch(e.target.value);
+  function onChangeEvent(event) {
+    const { value } = event.target;
+
+    function capitalizeFirstLetter() {
+      return value.charAt(0).toUpperCase() + value.slice(1);
+    }
+
+    setSearch(capitalizeFirstLetter());
   }
 
   function timeupdate() {
@@ -69,7 +77,7 @@ function WeatherApp() {
               {searchValue !== "" && storeimage && storeimage.length > 0 && (
                 <img
                   src={`https://source.unsplash.com/600x800/?${storeimage[0].main}`}
-                  alt=""
+                  alt={imageAlt}
                   className=""
                 />
               )}
