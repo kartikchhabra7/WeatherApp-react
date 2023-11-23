@@ -5,7 +5,7 @@ A simple weather application built with React.js that allows users to check the 
 
 ## 🔗 Project Link
 
-[![weather-app](https://img.shields.io/badge/Explore_MY_App-000?style=for-the-badge&logo=react&logoColor=white)](https://kartik-weather-app.netlify.app/)
+[![weather-app](https://img.shields.io/badge/Explore_MY_App-000?style=for-the-badge&logo=react&logoColor=white)](https://kartik-weather.netlify.app/)
 
 ## Features
 
